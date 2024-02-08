@@ -30,12 +30,24 @@
              <input type="text" id="default-input" class="bg-gray-50 border border-gray-300  text-sm rounded-lg  block w-full p-2.5">
          </div>
          <div class="  px-5 py-5 grid justify-items-end">
-             <button class="w-[20%] h-10 bg-orange-600 rounded flex items-center justify-center text-center text-white  ">
+             <button class="w-[20%] h-10 bg-orange-600 rounded flex items-center justify-center text-center text-white  " id="butn">
                  <!-- <i class='bx bx-trash text-red-600'></i> -->
                  Add todo
              </button>
          </div>
      </div>
+
+    <script>
+        const input = document.getElementById('default-input')
+        const btn = document.getElementById('butn')
+
+    let Add = []
+
+    btn.addEventListener('click', () =>{
+        Add.push(input.value)
+        console.log(Add)
+    }) 
+    </script>
     
 </body>
 </html>
