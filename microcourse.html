@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz Application</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    #quiz-container {
+        width: 60%;
+        margin: auto;
+    }
+    #question {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+    #options {
+        margin-bottom: 20px;
+    }
+    #options label {
+        display: block;
+        margin-bottom: 10px;
+    }
+    #submit-btn {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+</style>
+</head>
+<body>
+
+<div id="quiz-container">
+    <h2>Quiz Application</h2>
+    <div id="question"></div>
+    <div id="options"></div>
+    <button id="submit-btn">Submit Answer</button>
+    <div id="score" style="display: none;">Your score: <span id="score-value"></span></div>
+</div>
+
+<script>
+    // Define quiz data
+    const quizData = [
+        {
+            question: "What is the capital of France?",
+            options: ["London", "Paris", "Berlin", "Rome"],
+            answer: 1 // Paris
+        },
+        {
+            question: "What is 2 + 2?",
+            options: ["3", "4", "5", "6"],
+            answer: 1 // 4
+        }
+        // Add more questions here
+    ];
+
+    // Initialize variables
+    let currentQuestionIndex = 0;
+    let score = 0;
+
+    const questionElement = document.getElementById('question');
+    const optionsElement = document.getElementById('options');
+    const submitButton = document.getElementById('submit-btn');
+    const scoreElement = document.getElementById('score');
+    const scoreValueElement = document.getElementById('score-value');
+
+    // Function to load question
+    function loadQuestion() {
+        const currentQuestion = quizData[currentQuestionIndex];
+        questionElement.innerText = currentQuestion.question;
+        optionsElement.innerHTML = "";
+        currentQuestion.options.forEach((option, index) => {
+            const input = document.createElement('input');
+            input.type = 'radio';
+            input.name = 'option';
+            input.value = index;
+            const label = document.createElement('label');
+            label.textContent = option;
+            optionsElement.appendChild(input);
+            optionsElement.appendChild(label);
+        });
+    }
+
+    // Function to check answer
+    function checkAnswer() {
+        const selectedOptionIndex = document.querySelector('input[name="option"]:checked').value;
+        const currentQuestion = quizData[currentQuestionIndex];
+        if (parseInt(selectedOptionIndex) === currentQuestion.answer) {
+            score++;
+        }
+        currentQuestionIndex++;
+        if (currentQuestionIndex < quizData.length) {
+            loadQuestion();
+        } else {
+            showScore();
+        }
+    }
+
+    // Function to show score
+    function showScore() {
+        questionElement.style.display = 'none';
+        optionsElement.style.display = 'none';
+        submitButton.style.display = 'none';
+        scoreValueElement.innerText = score;
+        scoreElement.style.display = 'block';
+    }
+
+    // Event listener for submit button click
+    submitButton.addEventListener('click', checkAnswer);
+
+    // Load first question
+    loadQuestion();
+</script>
+
+</body>
+</html>

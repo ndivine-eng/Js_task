@@ -1,1 +1,1 @@
-# js_task
+js tasks well designed
